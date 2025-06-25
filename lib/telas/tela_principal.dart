@@ -10,7 +10,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // isso é uma lista de texto, que contem o endereço das imagens
   List<String> images = [
     'assets/img1.jpeg',
     'assets/img2.webp',
@@ -18,10 +17,11 @@ class _HomePageState extends State<HomePage> {
   ];
 
   List<int> imagemSelecionada = [0, 1, 2];
+  
+
+  int contadorVitorias = 0; // contador de vitórias
 
   void sortear() {
-    int i = 0;
-    while (i<5) {}
     setState(() {
       imagemSelecionada[0] = Random().nextInt(images.length);
       imagemSelecionada[1] = Random().nextInt(images.length);
@@ -30,13 +30,16 @@ class _HomePageState extends State<HomePage> {
 
     if (imagemSelecionada[0] == imagemSelecionada[1] &&
         imagemSelecionada[1] == imagemSelecionada[2]) {
+      setState(() {
+        contadorVitorias++;
+      });
+
       showDialog(
         context: context,
-        builder:
-            (context) => AlertDialog(
-              title: Text("Parabens"),
-              content: Text("voce ganhou"),
-            ),
+        builder: (context) => AlertDialog(
+          title: Text("Parabéns"),
+          content: Text("Você ganhou"),
+        ),
       );
     }
   }
@@ -51,16 +54,15 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: const Color.fromARGB(255, 163, 219, 248),
       ),
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          sortear();
-        },
-        child: Icon(Icons.catching_pokemon),
-        backgroundColor: const Color.fromARGB(255, 163, 219, 248),
-        foregroundColor: const Color.fromARGB(255, 255, 255, 255),
-      ),
       body: Column(
         children: [
+          const SizedBox(height: 15),
+          // Mostra o contador de vitórias
+          Text(
+            'Vitórias: $contadorVitorias',
+            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 15),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -69,24 +71,30 @@ class _HomePageState extends State<HomePage> {
                 width: larguraImagem,
                 height: 200,
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               Image.asset(
                 images[imagemSelecionada[1]],
                 width: larguraImagem,
                 height: 200,
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               Image.asset(
                 images[imagemSelecionada[2]],
                 width: larguraImagem,
                 height: 200,
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
             ],
           ),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+        onPressed: sortear,
+        child: Icon(Icons.catching_pokemon),
+        backgroundColor: const Color.fromARGB(255, 163, 219, 248),
+        foregroundColor: Colors.white,
+      ),
     );
   }
 }
