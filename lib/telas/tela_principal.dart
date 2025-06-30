@@ -86,6 +86,15 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(width: 10),
             ],
           ),
+          Text(
+            "Pontuação" + somatoria.toString(),
+            style: TextStyle(
+              fontSize: 30,
+              color: Colors.black
+              fontWeight: FontWeight.w900
+              backgroundColor: Colors.white
+            ),
+          )
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
